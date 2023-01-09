@@ -1,0 +1,75 @@
+class ORGANIZATION:
+    def __init__(self, name, phone, address):
+        self.name = name
+        self.phone = phone
+        self.address = address
+
+    def set_name(self, name):
+        self.name = name
+    def get_name(self):
+        return self.name
+    def set_phone(self, phone):
+        self.phone = phone
+    def get_phone(self):
+        return self.phone
+    def set_address(self, address):
+        self.address = address
+    def get_address(self):
+        return self.address
+
+    def __str__(self):
+        return f'Name: {self.name}\nPhone: {self.phone}\nAddress: {self.address}'
+
+class KAFEDRA(ORGANIZATION):
+    def __init__(self, name, phone, address, specialty, bakalavr, specialists, masters):
+        super().__init__(name, phone, address)
+        self.specialty = specialty
+        self.bakalavr = bakalavr
+        self.specialists = specialists
+        self.masters = masters
+
+    def set_specialty(self, specialty):
+        self.specialty = specialty
+    def get_specialty(self):
+        return self.specialty
+    
+    def set_bakalavr(self, bakalavr):
+        self.bakalavr = bakalavr
+    def get_bakalavr(self):
+        return self.bakalavr
+    
+    def set_specialists(self, specialists):
+        self.specialists = specialists
+    def get_specialists(self):
+        return self.specialists
+    
+    def set_masters(self, masters):
+        self.masters = masters
+    def get_masters(self):
+        return self.masters
+
+    def __str__(self):
+        return f'{super().__str__()}\nSpecialty: {self.specialty}\nBakalavr: {self.bakalavr}\nSpecialists: {self.specialists}\nMasters: {self.masters}'
+
+class FACULTET(KAFEDRA):
+    def __init__(self, name, phone, address, specialty, bakalavr, specialists, masters, kafedras=[]):
+        super().__init__(name, phone, address, specialty, bakalavr, specialists, masters)
+        self.kafedras = kafedras
+
+    def add_department(self, department):
+        self.kafedras.append(department)
+
+    def remove_department(self, department):
+        self.kafedras.remove(department)
+
+    def get_departments(self):
+        return self.kafedras
+
+    def total_students(self):
+        total = 0
+        for department in self.kafedras:
+            total += department.get_bakalavr() + department.get_specialists() + department.get_masters()
+        return total
+
+    def __iter__(self):
+        return iter(self.kafedras)
